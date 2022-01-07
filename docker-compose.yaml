@@ -1,0 +1,20 @@
+version: '3.6'
+services:
+  synth:
+    build: .
+    image: synth
+    environment:
+      - PURPOSE=synth
+    volumes:
+      - .:/app
+      - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
+      - ~/.aws/:/root/.aws:ro
+
+  deploy:
+    image: synth
+    environment:
+      - PURPOSE=local-cdk-deploy
+    volumes:
+      - .:/app
+      - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
+      - ~/.aws/:/root/.aws:ro
