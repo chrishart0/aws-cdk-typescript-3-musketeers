@@ -10,10 +10,37 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
       - ~/.aws/:/root/.aws:ro
 
+  bootstrap:
+    image: synth
+    environment:
+      - PURPOSE=local-cdk-bootstrap
+    volumes:
+      - .:/app
+      - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
+      - ~/.aws/:/root/.aws:ro
+
   deploy:
     image: synth
     environment:
       - PURPOSE=local-cdk-deploy
+    volumes:
+      - .:/app
+      - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
+      - ~/.aws/:/root/.aws:ro
+
+  destroy:
+    image: synth
+    environment:
+      - PURPOSE=local-cdk-destroy
+    volumes:
+      - .:/app
+      - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
+      - ~/.aws/:/root/.aws:ro
+
+  diff:
+    image: synth
+    environment:
+      - PURPOSE=local-cdk-diff
     volumes:
       - .:/app
       - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container

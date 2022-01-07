@@ -13,13 +13,26 @@ echo "Basedir => ${BASEDIR}"
 
 #If this is just a synth then simply throw the synth to the console and exit the container
 echo "PURPOSE:" $PURPOSE
+cd infrastructure
+
+if [ $PURPOSE = "local-cdk-bootstrap" ]; then
+    cdk bootstrap
+fi
 
 if [ $PURPOSE = "synth" ]; then
     cdk synth --no-staging 
-    exit
 fi
 
 if [ $PURPOSE = "local-cdk-deploy" ]; then
     cdk deploy --require-approval never
-    exit
 fi
+
+if [ $PURPOSE = "local-cdk-destroy" ]; then
+    cdk destroy --force
+fi
+
+if [ $PURPOSE = "local-cdk-diff" ]; then
+    cdk diff
+fi
+
+# exit
