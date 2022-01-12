@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     jq \
     software-properties-common \
-    && npm install -g aws-cdk \
+    && npm install -g aws-cdk ts-node \
     && rm -rf /var/lib/apt/lists/*
 
 #Install docker so we can find the network name as it is needed by 

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "Node Version: $(node --version)"
 echo "NPM Version: $(npm --version)"
 echo "CDK Version: $(cdk --version)"
@@ -7,16 +8,26 @@ BASEDIR="$1"
 
 echo "Basedir => ${BASEDIR}"
 
+#####################
+#Required deps check#
+#####################
+
+
 ########################################################
 # Handle for purposes other than local-test environment#
 ########################################################
 
 #If this is just a synth then simply throw the synth to the console and exit the container
 echo "PURPOSE:" $PURPOSE
-cd infrastructure
+echo "CDK_DIR:" $CDK_DIR
+cd $CDK_DIR
 
 if [ $PURPOSE = "local-cdk-bootstrap" ]; then
     cdk bootstrap
+fi
+
+if [ $PURPOSE = "npm-install" ]; then
+    npm install
 fi
 
 if [ $PURPOSE = "synth" ]; then
@@ -34,5 +45,3 @@ fi
 if [ $PURPOSE = "local-cdk-diff" ]; then
     cdk diff
 fi
-
-# exit

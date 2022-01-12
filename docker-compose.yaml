@@ -5,6 +5,8 @@ services:
     image: synth
     environment:
       - PURPOSE=synth
+    env_file:
+      - three_musketeers.env
     volumes:
       - .:/app
       - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
@@ -14,6 +16,19 @@ services:
     image: synth
     environment:
       - PURPOSE=local-cdk-bootstrap
+    env_file:
+      - three_musketeers.env
+    volumes:
+      - .:/app
+      - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
+      - ~/.aws/:/root/.aws:ro
+
+  npm-install:
+    image: synth
+    environment:
+      - PURPOSE=npm-install
+    env_file:
+      - three_musketeers.env
     volumes:
       - .:/app
       - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
@@ -23,6 +38,8 @@ services:
     image: synth
     environment:
       - PURPOSE=local-cdk-deploy
+    env_file:
+      - three_musketeers.env
     volumes:
       - .:/app
       - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
@@ -32,6 +49,8 @@ services:
     image: synth
     environment:
       - PURPOSE=local-cdk-destroy
+    env_file:
+      - three_musketeers.env
     volumes:
       - .:/app
       - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
@@ -41,6 +60,8 @@ services:
     image: synth
     environment:
       - PURPOSE=local-cdk-diff
+    env_file:
+      - three_musketeers.env
     volumes:
       - .:/app
       - /var/run/docker.sock:/var/run/docker.sock #Needed so a docker container can be run from inside a docker container
