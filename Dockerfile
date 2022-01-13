@@ -2,8 +2,7 @@ FROM node:16
 
 #Install NodeJS and CDK
 RUN apt-get update && apt-get install -y \
-    curl \
-    jq \
+    make \
     software-properties-common \
     && npm install -g aws-cdk ts-node \
     && rm -rf /var/lib/apt/lists/*
@@ -17,5 +16,3 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /
     && apt-get -y install docker-ce-cli
 
 WORKDIR /app
-
-ENTRYPOINT ["./entrypoint.sh"]

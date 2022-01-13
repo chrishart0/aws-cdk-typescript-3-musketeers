@@ -1,31 +1,59 @@
 SHELL=/bin/bash
-CDK_DIR=infrastructure 
+CDK_DIR=infrastructure/
+COMPOSE_RUN = docker-compose run --rm cdk-base
+COMPOSE_UP = docker-compose up
 
-# first target
 all: synth
+pre-reqs: _prep-cache container-build npm-install container-info
+	
 
-pre-reqs: #This resolves Error: EACCES: permission denied, open 'cdk.out/tree.json'
+_prep-cache: #This resolves Error: EACCES: permission denied, open 'cdk.out/tree.json'
 	mkdir -p infrastructure/cdk.out/
 
-build: pre-reqs
+container-build: pre-reqs
 	docker-compose build
 
-npm-install: pre-reqs
-	docker-compose up npm-install
+container-info:
+	${COMPOSE_RUN} make _container-info
 
-synth: pre-reqs
-	docker-compose up synth
+_container-info:
+	./containerInfo.sh
 
-bootstrap: pre-reqs
-	docker-compose up bootstrap
+clear-cache:
+	${COMPOSE_RUN} rm -rf ${CDK_DIR}cdk.out && rm -rf ${CDK_DIR}node_modules
 
-deploy: pre-reqs
-	docker-compose up deploy
+npm-install: _prep-cache
+	${COMPOSE_RUN} make _npm-install
+
+_npm-install:
+	cd ${CDK_DIR} && npm install
+
+synth: _prep-cache
+	${COMPOSE_RUN} make _synth
+
+_synth:
+	cd ${CDK_DIR} && cdk synth --no-staging
+
+bootstrap: _prep-cache
+	${COMPOSE_RUN} make _bootstrap
+
+_bootstrap:
+	cd ${CDK_DIR} && cdk bootstrap
+
+deploy: _prep-cache
+	${COMPOSE_RUN} make _deploy
+
+_deploy: 
+	cd ${CDK_DIR} && cdk deploy --require-approval never
 
 destroy:
-	docker-compose up destroy
+	${COMPOSE_RUN} make _destroy
 
-diff: pre-reqs
-	docker-compose up diff
+_destroy:
+	cd ${CDK_DIR} && cdk destroy --force
 
+diff: _prep-cache
+	${COMPOSE_RUN} make _diff
 
+_diff: _prep-cache
+	cd ${CDK_DIR} && cdk diff
