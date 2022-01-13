@@ -3,7 +3,7 @@ CDK_DIR=infrastructure/
 COMPOSE_RUN = docker-compose run --rm cdk-base
 COMPOSE_UP = docker-compose up
 
-all: synth
+all: pre-reqs synth
 pre-reqs: _prep-cache container-build npm-install container-info
 	
 
