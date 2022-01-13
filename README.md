@@ -31,4 +31,4 @@ This error is caused by permissions on the cdk.out directory. Ensure your user o
 * Find a way not to have to use force on destroy and deploy
 
 # Note:
-This repo was put together as part of the [Signet Seal](signetseal.com) project
+This repo was put together as part of the [Signet Seal](https://signetseal.com) project
