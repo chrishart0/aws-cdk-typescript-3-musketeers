@@ -100,7 +100,6 @@ Error: EACCES: permission denied, open 'cdk.out/tree.json'
 This error is caused by permissions on the cdk.out directory. Ensure your user owns this, not root. To resolve run `make pre-reqs`
 
 # ToDo:
-* Detailed how to use guide with gifs/screenshots in README
 * Handle different aws profiles
 * Handle a new project init
 * Find a way not to have to use force on destroy and deploy
