@@ -2,6 +2,7 @@
 This is an example of containerized AWS CDK which you may use in any of your projects. 
 
 [3 Musketeers for an epic Developer Experience](https://www.drewkhoury.com/post/gsd/3-musketeers-for-an-epic-developer-experience-8676ddaf33b2/)
+
 [What is 3 musketeers?](https://3musketeers.io/docs/docker.html)
 
 ## Getting started
