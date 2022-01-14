@@ -5,6 +5,8 @@ This is an example of containerized AWS CDK which you may use in any of your pro
 
 [What is 3 musketeers?](https://3musketeers.io/docs/docker.html)
 
+[What is AWS CDK](https://aws.amazon.com/cdk/)
+
 ## Getting started
 The contents of the `infrastructure` directory is the output of running cdk `init sample-app --language typescript`
 
