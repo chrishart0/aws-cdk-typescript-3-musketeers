@@ -44,7 +44,7 @@ Run the needed setup steps to allow working with CDK
 $ make pre-reqs
 ```
 
-Spits out some useful troubleshooting info: see (containerInfo.sh)[https://github.com/chrishart0/aws-cdk-typescript-3-musketeers/blob/master/containerInfo.sh]
+Spits out some useful troubleshooting info: see [containerInfo.sh](containerInfo.sh)
 ```
 $ make container-info
 ```
