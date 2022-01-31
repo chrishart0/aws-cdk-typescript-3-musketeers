@@ -2,6 +2,7 @@ SHELL=/bin/bash
 CDK_DIR=infrastructure/
 COMPOSE_RUN = docker-compose run --rm cdk-base
 COMPOSE_UP = docker-compose up
+PROFILE = --profile default 
 
 all: pre-reqs synth
 pre-reqs: _prep-cache container-build npm-install container-info
@@ -28,32 +29,41 @@ npm-install: _prep-cache
 _npm-install:
 	cd ${CDK_DIR} && npm install
 
+npm-update: _prep-cache
+	${COMPOSE_RUN} make _npm-update
+
+_npm-update:
+	cd ${CDK_DIR} && npm update
+
+cli: _prep-cache
+	docker-compose run cdk-base /bin/bash
+
 synth: _prep-cache
 	${COMPOSE_RUN} make _synth
 
 _synth:
-	cd ${CDK_DIR} && cdk synth --no-staging
+	cd ${CDK_DIR} && cdk synth --no-staging ${PROFILE}
 
 bootstrap: _prep-cache
 	${COMPOSE_RUN} make _bootstrap
 
 _bootstrap:
-	cd ${CDK_DIR} && cdk bootstrap
+	cd ${CDK_DIR} && cdk bootstrap ${PROFILE}
 
 deploy: _prep-cache
 	${COMPOSE_RUN} make _deploy
 
 _deploy: 
-	cd ${CDK_DIR} && cdk deploy --require-approval never
+	cd ${CDK_DIR} && cdk deploy --require-approval never ${PROFILE}
 
 destroy:
 	${COMPOSE_RUN} make _destroy
 
 _destroy:
-	cd ${CDK_DIR} && cdk destroy --force
+	cd ${CDK_DIR} && cdk destroy --force ${PROFILE}
 
 diff: _prep-cache
 	${COMPOSE_RUN} make _diff
 
 _diff: _prep-cache
-	cd ${CDK_DIR} && cdk diff
+	cd ${CDK_DIR} && cdk diff ${PROFILE}

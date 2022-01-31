@@ -72,7 +72,6 @@ $ make_prep-cache
 ## CDK Commands
 The following commands directly correspond to CDK CLI commands, it is an action item to implement all CDK commands
 
-
 ```
 $ make bootstrap
 ```
@@ -95,6 +94,11 @@ $ make deploy
 $ make destroy
 ```
 
+Enter into the container terminal to issue commands directly
+```
+$ make cli
+```
+
 # Troubleshooting
 
 ```
@@ -103,9 +107,7 @@ Error: EACCES: permission denied, open 'cdk.out/tree.json'
 This error is caused by permissions on the cdk.out directory. Ensure your user owns this, not root. To resolve run `make pre-reqs`
 
 # ToDo:
-* Handle different aws profiles
 * Handle a new project init
 * Find a way not to have to use force on destroy and deploy
 
 # Note:
-This repo was put together as part of the [Signet Seal](https://signetseal.com) project
