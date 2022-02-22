@@ -23,6 +23,9 @@ _container-info:
 clear-cache:
 	${COMPOSE_RUN} rm -rf ${CDK_DIR}cdk.out && rm -rf ${CDK_DIR}node_modules
 
+cli: _prep-cache
+	docker-compose run cdk-base /bin/bash
+
 npm-install: _prep-cache
 	${COMPOSE_RUN} make _npm-install
 
@@ -34,9 +37,6 @@ npm-update: _prep-cache
 
 _npm-update:
 	cd ${CDK_DIR} && npm update
-
-cli: _prep-cache
-	docker-compose run cdk-base /bin/bash
 
 synth: _prep-cache
 	${COMPOSE_RUN} make _synth
@@ -67,3 +67,11 @@ diff: _prep-cache
 
 _diff: _prep-cache
 	cd ${CDK_DIR} && cdk diff ${PROFILE}
+
+test: 
+	${COMPOSE_RUN} make _test
+
+_test: 
+	cd ${CDK_DIR} && npm test 
+
+
